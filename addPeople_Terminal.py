@@ -1,5 +1,4 @@
-import bcrypt
-import mysql.connector
+import bcrypt, mysql.connector
 
 db = mysql.connector.connect(
     host="localhost",
@@ -10,22 +9,15 @@ db = mysql.connector.connect(
 
 cursor = db.cursor()
 
-username = "Samruddhi"
-password = "Samruddhi@12"
-permissions = "read,write"
+username = "Sampada"
+password = "Sampada@15"
+permissions = "read,execute"
 
 hashed_pw = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
 
-hashed_pw_str = hashed_pw.decode()
-
-query = "INSERT INTO user(username, password, permissions) VALUES(%s, %s, %s)"
-
-values = (username, hashed_pw_str, permissions)
-
-cursor.execute(query, values)
+cursor.execute("INSERT INTO user(username, password, permissions) VALUES(%s,%s,%s)", (username, hashed_pw, permissions))
 db.commit()
-
-print("Inserted successfully")
+print("Inserted successfully!")
 
 cursor.close()
 db.close()
